@@ -169,7 +169,7 @@
   </header>
 
   <div class="b-example-divider"></div>
-  <div id="people"></div>
+  <div id="computers"></div>
   <hr />
   <label class="btn btn-outline-primary" id="toggle_theme">Toggle Theme</label>
 </div>
@@ -181,7 +181,8 @@
                 let rand_dom = '_' + uuidv4();
                 let times = get_times(rand_dom);
                 // todo - click doesn't work and radio spans accross users'
-                $("#people").append(
+                $("#computers").append(
+                    "<p class='h2 computer' id='"+computer"'>"+computer+"</p>"+
                     "<span class='user' id='" + user + rand_dom + "'>" +
                         "<p  class='h3'>" + user + "<span class='notify loading'></span></p>" +
                         "<span class='time_wrapper'>" +
