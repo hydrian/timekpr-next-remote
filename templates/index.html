@@ -183,7 +183,8 @@
                 // todo - click doesn't work and radio spans accross users'
                 $("#computers").append(
                     "<p class='computer h2' id='"+computer+"'>" + computer + "</p>" +
-                    $.each(userList, function (user, userVal) {
+                    $.each(userList, function (userIdx, userVal) {
+                        var user = userVal;
                         $("#"+computer).append(
                             "<span class='user' id='"+ computer + user + rand_dom + "'>" +
                                 "<p  class='h3'>" + user + "<span class='notify loading'></span></p>" +
