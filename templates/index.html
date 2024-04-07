@@ -208,20 +208,18 @@
                                 "</div> " +
                             "</span>"
                         )
-                    
-                
 
                         $('#' + computer + user  + rand_dom + " .notify").show().html("Loading...");
                         $('#' + computer + user + rand_dom + ' .btn').addClass("disabled");
                         $('#' + computer + user  + rand_dom + ' .btn-check').addClass("disabled");
+                        setInterval(function () {
+                        $('#' + computer + user  + rand_dom + " .loading").fadeIn(1300).fadeOut(1300);
+                    }, 1400);
+                    $.getJSON( "/get_usage/" + computer + "/" + user, function( usage ) {
+                        render_user_to_dom(user, computer, usage, rand_dom);
+                    });
                     })
-                );
-                setInterval(function () {
-                    $('#' + user  + rand_dom + " .loading").fadeIn(1300).fadeOut(1300);
-                }, 1400);
-                $.getJSON( "/get_usage/" + computer + "/" + user, function( usage ) {
-                    render_user_to_dom(user, computer, usage, rand_dom);
-                });
+               );
             });
         });
 
