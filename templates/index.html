@@ -169,20 +169,19 @@
   </header>
 
   <div class="b-example-divider"></div>
-  <div id="computers"></div>
+  <div id="people"></div>
   <hr />
   <label class="btn btn-outline-primary" id="toggle_theme">Toggle Theme</label>
 </div>
     <script src="{{ url_for('static', filename='bootstrap.5.1.3.min.js') }}"></script>
-    <script src="{{ url_for('static', filename='jquery-3.7.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='jquery-3.6.3.min.js') }}"></script>
     <script>
         $.getJSON( "/config", function( data ) {
             $.each( data, function( computer, user ) {
                 let rand_dom = '_' + uuidv4();
                 let times = get_times(rand_dom);
                 // todo - click doesn't work and radio spans accross users'
-                $("#computers").append(
-                    "<p class='h2 computer' id='"+computer"'>"+computer+"</p>"+
+                $("#people").append(
                     "<span class='user' id='" + user + rand_dom + "'>" +
                         "<p  class='h3'>" + user + "<span class='notify loading'></span></p>" +
                         "<span class='time_wrapper'>" +
