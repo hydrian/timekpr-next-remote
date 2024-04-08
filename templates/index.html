@@ -247,9 +247,9 @@
                 if(action !== undefined && seconds !== undefined){
                     $('input').prop('checked', false);
                     add_or_remove_time(user, computer, action, seconds, rand_dom);
-                    $( '#' + user + rand_dom + ' .notify').html('Updated!').fadeIn(function() {
+                    $( '#' + escapeCSS(computer) + escapeCSS(user) + rand_dom + ' .notify').html('Updated!').fadeIn(function() {
                         setTimeout(function() {
-                            $('#' + user + rand_dom + ' .notify').fadeOut("slow");
+                            $('#' + escapeCSS(computer) + escapeCSS(user) + rand_dom + ' .notify').fadeOut("slow");
                         }, 1000);
                     });
                 } else {
