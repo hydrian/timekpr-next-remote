@@ -213,7 +213,7 @@
                     
                     setInterval(function () {
                         $('#' + escapeCSS(computer) + escapeCSS(user)  + rand_dom + " .loading").fadeIn(1300).fadeOut(1300);
-                    }, 1400);
+                    }, 5000);
                     
                     $.getJSON( "/get_usage/" + computer + "/" + user, function( usage ) {
                         render_user_to_dom(user, computer, usage, rand_dom);
