@@ -272,7 +272,7 @@
                 $('#' + escapeCSS(computer) + escapeCSS(user) + rand_dom + ' .btn-check').removeClass("disabled");
                 add_click_handler(user, rand_dom, computer);
             } else {
-                console.warn(JSON.parse(JSON.stringify));
+                console.warn(JSON.stringify(usage));
                 $('#' + escapeCSS(computer) + escapeCSS(user) + rand_dom + " .time_wrapper").html(computer + " failed. Off? Bad Auth?");
                 $('#' + escapeCSS(computer) + escapeCSS(user) + rand_dom + " .notify").addClass("error").html("Error");
             }
