@@ -178,7 +178,7 @@
     <script>
         $.getJSON( "/config", function( data ) {
             $.each( data, function( computer, userList ) {
-                $("#computers").append ("<div><label for='"+computer+"'>"+computer+"</label></div><div class='computer h2' id='"+computer+"'/></div>" );
+                $("#computers").append ("<div><label class='h2' for='"+computer+"'>"+computer+"</label><div class='computer' id='"+computer+"'/></div>" );
                 $.each(userList, function (userIdx, userVal) {
                     let rand_dom = '_' + uuidv4();
                     let times = get_times(rand_dom);
