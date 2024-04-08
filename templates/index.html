@@ -239,7 +239,7 @@
             });
         }
 
-        function add_click_handler(user, rand_dom){
+        function add_click_handler(user, rand_dom, computer){
             $("#" + escapeCSS(computer) + escapeCSS(user) + rand_dom + " .save_me" ).click(function() {
                 const computer = $( this ).attr('computer');
                 const action = $( '#' + escapeCSS(computer) + escapeCSS(user) + rand_dom + ' input[name="action"]:checked').val();
@@ -270,7 +270,7 @@
                 $('#' + escapeCSS(computer) + escapeCSS(user) + rand_dom + " .loading").removeClass('loading');
                 $('#' + escapeCSS(computer) + escapeCSS(user) + rand_dom + ' .btn').removeClass("disabled");
                 $('#' + escapeCSS(computer) + escapeCSS(user) + rand_dom + ' .btn-check').removeClass("disabled");
-                add_click_handler(user, rand_dom);
+                add_click_handler(user, rand_dom, computer);
             } else {
                 $('#' + escapeCSS(computer) + escapeCSS(user) + rand_dom + " .time_wrapper").html(computer + " failed. Off? Bad Auth?");
                 $('#' + escapeCSS(computer) + escapeCSS(user) + rand_dom + " .notify").addClass("error").html("Error");
