@@ -183,7 +183,7 @@
                     let rand_dom = '_' + uuidv4();
                     let times = get_times(rand_dom);
                     var user = userVal;
-                    $("#"+computer).append(
+                    $("#"+escapeCSS(computer)).append(
                         "<span class='user' id='"+ escapeCSS(computer) + escapeCSS(user) + rand_dom + "'>" +
                             "<p  class='h3'>" + user + "<span class='notify loading'></span></p>" +
                             "<span class='time_wrapper'>" +
