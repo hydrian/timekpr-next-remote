@@ -178,13 +178,13 @@
     <script>
         $.getJSON( "/config", function( data ) {
             $.each( data, function( computer, userList ) {
-                $("#computers").append ("<div><label class='h2' for='"+computer+"'>"+computer+"</label><div class='computer' id='"+computer+"'/></div>" );
+                $("#computers").append ("<div><label class='h2' for='"+escapeCSS(computer)+"'>"+computer+"</label><div class='computer' id='"+escapeCSS(computer)+"'/></div>" );
                 $.each(userList, function (userIdx, userVal) {
                     let rand_dom = '_' + uuidv4();
                     let times = get_times(rand_dom);
                     var user = userVal;
                     $("#"+computer).append(
-                        "<span class='user' id='"+ computer + user + rand_dom + "'>" +
+                        "<span class='user' id='"+ escapeCSS(computer) + escapeCSS(user) + rand_dom + "'>" +
                             "<p  class='h3'>" + user + "<span class='notify loading'></span></p>" +
                             "<span class='time_wrapper'>" +
                                 "Unused: <span class='time time_left'>...</span> " +
@@ -207,12 +207,14 @@
                         "</span>"
                     );
 
-                    $('#' + computer + user  + rand_dom + " .notify").show().html("Loading...");
-                    $('#' + computer + user + rand_dom + ' .btn').addClass("disabled");
-                    $('#' + computer + user  + rand_dom + ' .btn-check').addClass("disabled");
+                    $('#' + escapeCSS(computer) + escapeCSS(user)  + rand_dom + " .notify").show().html("Loading...");
+                    $('#' + escapeCSS(computer) + escapeCSS(user) + rand_dom + ' .btn').addClass("disabled");
+                    $('#' + escapeCSS(computer) + escapeCSS(user) + ' .btn-check').addClass("disabled");
+                    
                     setInterval(function () {
-                        $('#' + computer + user  + rand_dom + " .loading").fadeIn(1300).fadeOut(1300);
+                        $('#' + escapeCSS(computer) + escapeCSS(user)  + rand_dom + " .loading").fadeIn(1300).fadeOut(1300);
                     }, 1400);
+                    
                     $.getJSON( "/get_usage/" + computer + "/" + user, function( usage ) {
                         render_user_to_dom(user, computer, usage, rand_dom);
                     });
@@ -258,20 +260,20 @@
 
         function render_user_to_dom(user, computer, usage, rand_dom){
             if(usage.result === 'success') {
-                $( '#' + user + rand_dom + ' .notify').fadeOut().html('Loaded!').fadeIn(function() {
+                $( '#' + escapeCSS(computer) + escapeCSS(user) + rand_dom + ' .notify').fadeOut().html('Loaded!').fadeIn(function() {
                     setTimeout(function() {
-                        $('#' + user + rand_dom + ' .notify').fadeOut("slow");
+                        $('#' + escapeCSS(computer) + escapeCSS(user) + rand_dom + ' .notify').fadeOut("slow");
                     }, 1000);
                 });
-                $('#' + user + rand_dom + " .time_left").html(secondsToHms(usage.time_left));
-                $('#' + user + rand_dom + " .time_spent").html(secondsToHms(usage.time_spent));
-                $('#' + user + rand_dom + " .loading").removeClass('loading');
-                $('#' + user + rand_dom + ' .btn').removeClass("disabled");
-                $('#' + user + rand_dom + ' .btn-check').removeClass("disabled");
+                $('#' + escapeCSS(computer) + escapeCSS(user) + rand_dom + " .time_left").html(secondsToHms(usage.time_left));
+                $('#' + escapeCSS(computer) + escapeCSS(user) + rand_dom + " .time_spent").html(secondsToHms(usage.time_spent));
+                $('#' + escapeCSS(computer) + escapeCSS(user) + rand_dom + " .loading").removeClass('loading');
+                $('#' + escapeCSS(computer) + escapeCSS(user) + rand_dom + ' .btn').removeClass("disabled");
+                $('#' + escapeCSS(computer) + escapeCSS(user) + rand_dom + ' .btn-check').removeClass("disabled");
                 add_click_handler(user, rand_dom);
             } else {
-                $('#' + user + rand_dom + " .time_wrapper").html(computer + " failed. Off? Bad Auth?");
-                $('#' + user + rand_dom + " .notify").addClass("error").html("Error");
+                $('#' + escapeCSS(computer) + escapeCSS(user) + rand_dom + " .time_wrapper").html(computer + " failed. Off? Bad Auth?");
+                $('#' + escapeCSS(computer) + escapeCSS(user) + rand_dom + " .notify").addClass("error").html("Error");
             }
         }
 
@@ -287,8 +289,8 @@
                 form = 'decrease_time'
             }
             $.getJSON("/" + form + "/" + computer + "/" + user + "/" + seconds, function( data ) {
-                $('#' + user + rand_dom + " .time_left").html(secondsToHms(data.time_left));
-                $('#' + user + rand_dom + " .time_spent").html(secondsToHms(data.time_spent));
+                $('#' + escapeCSS(computer) + escapeCSS(user) + rand_dom + " .time_left").html(secondsToHms(data.time_left));
+                $('#' + escapeCSS(computer) + escapeCSS(user) + rand_dom + " .time_spent").html(secondsToHms(data.time_spent));
             });
         }
 
@@ -324,6 +326,20 @@
         if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
           // Dark
           toggleTheme();
+        }
+
+        /**
+         * Encodes string CSS identifier so it doesn't have any CSS selectors in the ID
+         * @param str unsafevar
+         * @return str
+         * 
+         */ 
+        function escapeCSS(unsafeVar) {
+            return unsafeVar
+                .replace(/\.+/g,'_')
+                .replace(/\ +(.)/g,"$1".toUpperCase)
+                .replace(/-+/g,'_')
+            ;
         }
 
     </script>
