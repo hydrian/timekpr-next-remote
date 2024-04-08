@@ -178,12 +178,10 @@
     <script>
         $.getJSON( "/config", function( data ) {
             $.each( data, function( computer, userList ) {
-                let rand_dom = '_' + uuidv4();
-                let times = get_times(rand_dom);
-                // todo - click doesn't work and radio spans accross users'
-                $("#computers").append(
-                    "<p class='computer h2' id='"+computer+"'>" + computer + "</p>" +
+                $("#computers").append ("<p class='computer h2' id='"+computer+"'>" + computer + "</p>" );
                     $.each(userList, function (userIdx, userVal) {
+                        let rand_dom = '_' + uuidv4();
+                        let times = get_times(rand_dom);
                         var user = userVal;
                         $("#"+computer).append(
                             "<span class='user' id='"+ computer + user + rand_dom + "'>" +
